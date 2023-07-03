@@ -3,6 +3,8 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import coolImg from "../assets/placeholder-hero.jpg";
+import { Image } from "astro:assets";
 ---
 
 <!DOCTYPE html>
@@ -13,6 +15,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 	<body>
 		<Header title={SITE_TITLE} />
 		<main>
+			<Image src={coolImg} alt="cool image" />
 			<h1>{SITE_DESCRIPTION}</h1>
 			<p>
 				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This

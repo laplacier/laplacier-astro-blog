@@ -5,10 +5,13 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
 );
+
+const sizeMed = 200;
 ---
 
 <!DOCTYPE html>
@@ -21,15 +24,43 @@ const posts = (await getCollection('blog')).sort(
 				padding: unset;
 			}
 			ul li {
-				display: flex;
+				display: block;
+			}
+			.post-thumbnail {
+				float: left;
+				width: 200px;
+				height: 200px;
+			}
+			ul li img {
+				object-fit: cover;
+				height: inherit;
+			}
+			.post-info {
+				height: inherit;
+				margin-left: 205px;
+			}
+			.post-meta {
 			}
 			ul li :global(time) {
-				flex: 0 0 130px;
 				font-style: italic;
 				color: #595959;
 			}
 			ul li a:visited {
 				color: #8e32dc;
+			}
+			ul li::after {
+				content: "";
+				clear: both;
+				display: block;
+			}
+			@media only screen and (max-width: 698px) {
+				.post-thumbnail {
+					width: 80px;
+					height: 80px;
+				}
+				.post-info {
+					margin-left: 85px;
+				}
 			}
 		</style>
 	</head>
@@ -41,8 +72,19 @@ const posts = (await getCollection('blog')).sort(
 					{
 						posts.map((post) => (
 							<li>
-								<FormattedDate date={post.data.pubDate} />
-								<a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+								<div class="post-thumbnail">
+									<Image format="webp" width={300} height={300} quality="med" src={post.data.heroImage} alt="" />
+								</div>
+								<div class="post-info">
+									<a href={`/blog/${post.slug}/`}><h2>{post.data.title}</h2></a>
+									<div class="post-meta">
+										<FormattedDate date={post.data.pubDate} />
+									</div>
+									<p>
+										{post.data.description}
+										<a href={`/blog/${post.slug}/`}><span> Read More...</span></a>
+									</p>
+								</div>
 							</li>
 						))
 					}
