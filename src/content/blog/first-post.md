@@ -1,5 +1,5 @@
 ---
-title: 'First post'
+title: 'First post with a long title that bleeds into line two'
 description: 'Lorem ipsum dolor sit amet'
 pubDate: 'Jul 08 2022'
 heroImage: '../../assets/placeholder-hero.jpg'

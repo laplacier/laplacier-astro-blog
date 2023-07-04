@@ -25,25 +25,38 @@ const sizeMed = 200;
 			}
 			ul li {
 				display: block;
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  				transition: 0.3s;
+				margin-bottom: 5px;
+				max-height: 200px;
 			}
 			.post-thumbnail {
 				float: left;
 				width: 200px;
 				height: 200px;
 			}
+			.post-info h2 {
+				max-height: 72px;
+				margin-bottom: 1px;
+			}
 			ul li img {
 				object-fit: cover;
 				height: inherit;
+				border-radius: 5px;
 			}
 			.post-info {
 				height: inherit;
 				margin-left: 205px;
 			}
 			.post-meta {
-			}
-			ul li :global(time) {
 				font-style: italic;
 				color: #595959;
+			}
+			.post-info p {
+				margin-top: 5px; 
+			}
+			ul li:hover {
+				box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
 			}
 			ul li a:visited {
 				color: #8e32dc;
@@ -54,12 +67,27 @@ const sizeMed = 200;
 				display: block;
 			}
 			@media only screen and (max-width: 698px) {
+				ul li {
+					max-height: unset;
+				}
 				.post-thumbnail {
-					width: 80px;
-					height: 80px;
+					width: 100px;
+					height: 100px;
+					margin-right: 5px;
+				}
+				.post-info h2 {
+					overflow: hidden;
+					margin-top: 0px;
 				}
 				.post-info {
-					margin-left: 85px;
+					margin-left: 100px;
+				}
+				.post-meta {
+
+				}
+				.post-info p {
+					margin-top: 4px;
+					margin-left: -95px;
 				}
 			}
 		</style>
@@ -81,8 +109,8 @@ const sizeMed = 200;
 										<FormattedDate date={post.data.pubDate} />
 									</div>
 									<p>
-										{post.data.description}
-										<a href={`/blog/${post.slug}/`}><span> Read More...</span></a>
+										{post.body.slice(0,200)}...
+										<a href={`/blog/${post.slug}/`}><span> Read More</span></a>
 									</p>
 								</div>
 							</li>
