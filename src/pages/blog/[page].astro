@@ -4,14 +4,24 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
 import FormattedDate from '../../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
 
-const posts = (await getCollection('blog')).sort(
-	(a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf()
-);
+export const getStaticPaths = (async({ paginate }) => {
+    const blogPages = (await getCollection('blog')).sort(
+        (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    );
+    const astronautPages = blogPages.map((page) => ({
+		post: page,
+	}));
 
-const sizeMed = 200;
+    return paginate(astronautPages, { pageSize: 5 });
+
+}) satisfies GetStaticPaths;
+
+// All paginated data is passed on the "page" prop
+const { page } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -98,7 +108,7 @@ const sizeMed = 200;
 			<section>
 				<ul>
 					{
-						posts.map((post) => (
+						page.data.map(({ post }: any) => 
 							<li>
 								<div class="post-thumbnail">
 									<Image format="webp" width={300} height={300} quality="med" src={post.data.heroImage} alt="" />
@@ -114,9 +124,11 @@ const sizeMed = 200;
 									</p>
 								</div>
 							</li>
-						))
+						)
 					}
 				</ul>
+                {page.url.prev ? <a href={page.url.prev}>Previous</a> : null}
+                {page.url.next ? <a href={page.url.next}>Next</a> : null}
 			</section>
 		</main>
 		<Footer />

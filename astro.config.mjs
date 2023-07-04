@@ -7,10 +7,14 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
 	site: 'https://example.com',
 	experimental: {
-		assets: true
+		assets: true,
+		redirects: true
 	},
 	image: {
 		service: sharpImageService(),
 	},
 	integrations: [mdx(), sitemap()],
+	redirects: {
+		'/blog': '/blog/search/1'
+	}
 });
