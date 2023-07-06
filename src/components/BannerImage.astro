@@ -1,0 +1,10 @@
+---
+import { Image } from "astro:assets";
+
+//interface Props { bannerImg: string }
+const { bannerImg } = Astro.props;
+---
+
+<div class="img-banner">
+    <Image src={ bannerImg } alt="banner image" width={720} height={240} format="webp" quality="low" />
+</div>

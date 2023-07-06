@@ -5,7 +5,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
+	site: 'https://laplacier.com',
 	experimental: {
 		assets: true,
 		redirects: true
@@ -15,6 +15,6 @@ export default defineConfig({
 	},
 	integrations: [mdx(), sitemap()],
 	redirects: {
-		'/blog': '/blog/search/1'
+		'/blog': '/blog/1',
 	}
 });

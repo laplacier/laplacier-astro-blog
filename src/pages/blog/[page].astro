@@ -9,14 +9,14 @@ import FormattedDate from '../../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
 
 export const getStaticPaths = (async({ paginate }) => {
-    const blogPages = (await getCollection('blog')).sort(
+    const blogPosts = (await getCollection('blog')).sort(
         (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
     );
-    const astronautPages = blogPages.map((page) => ({
+    const blogPages = blogPosts.map((page) => ({
 		post: page,
 	}));
 
-    return paginate(astronautPages, { pageSize: 5 });
+    return paginate(blogPages, { pageSize: 5 });
 
 }) satisfies GetStaticPaths;
 
